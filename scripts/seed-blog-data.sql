@@ -208,7 +208,7 @@ B2B commerce has unique requirements that often necessitate custom components:
 
 Let''s create a custom product configurator component:
 
-```javascript
+\`\`\`javascript
 // productConfigurator.js
 import { LightningElement, api, track } from ''lwc'';
 import { ShowToastEvent } from ''lightning/platformShowToastEvent'';

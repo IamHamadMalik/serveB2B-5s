@@ -1,10 +1,16 @@
+"use client"
+
+import { useState } from "react"
 import { ArrowRight, CheckCircle, Cloud, Users, Zap, BookOpen, Calendar, Mail, Phone } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { ContactModal } from "@/components/contact-modal"
 
 export default function HomePage() {
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false)
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
       {/* Navigation */}
@@ -30,7 +36,9 @@ export default function HomePage() {
               <Link href="#contact" className="text-gray-700 hover:text-blue-600 transition-colors">
                 Contact
               </Link>
-              <Button className="bg-blue-600 hover:bg-blue-700">Get Started</Button>
+              <Button className="bg-blue-600 hover:bg-blue-700" onClick={() => setIsContactModalOpen(true)}>
+                Get Started
+              </Button>
             </div>
           </div>
         </div>
@@ -53,7 +61,11 @@ export default function HomePage() {
               full potential of their Salesforce investment.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-3">
+              <Button
+                size="lg"
+                className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-3"
+                onClick={() => setIsContactModalOpen(true)}
+              >
                 Start Your Project
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
@@ -322,7 +334,11 @@ export default function HomePage() {
           </div>
 
           <div className="text-center mt-12">
-            <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100 text-lg px-8 py-3">
+            <Button
+              size="lg"
+              className="bg-white text-blue-600 hover:bg-gray-100 text-lg px-8 py-3"
+              onClick={() => setIsContactModalOpen(true)}
+            >
               Get Started Today
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
@@ -428,6 +444,7 @@ export default function HomePage() {
           </div>
         </div>
       </footer>
+      <ContactModal isOpen={isContactModalOpen} onClose={() => setIsContactModalOpen(false)} />
     </div>
   )
 }

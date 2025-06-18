@@ -1,15 +1,139 @@
 "use client"
 
-import { useState } from "react"
-import { ArrowRight, CheckCircle, Cloud, Users, Zap, BookOpen, Calendar, Mail, Phone } from "lucide-react"
+import { useState, useEffect } from "react"
+import { ArrowRight, CheckCircle, Cloud, Users, Zap, BookOpen, Calendar, Mail, Phone, Clock, User } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ContactModal } from "@/components/contact-modal"
+import { supabase } from "@/lib/supabase"
+
+type BlogPost = {
+  id: number
+  title: string
+  slug: string
+  excerpt: string
+  content: string
+  featured: boolean
+  published: boolean
+  category: string
+  tags: string[]
+  author_name: string
+  author_email: string
+  read_time: number
+  meta_title: string
+  meta_description: string
+  created_at: string
+  updated_at: string
+}
+
+// Fallback articles for home page
+const fallbackArticles: BlogPost[] = [
+  {
+    id: 1,
+    title: "Salesforce B2B Commerce Cloud Best Practices",
+    slug: "salesforce-b2b-commerce-cloud-best-practices",
+    excerpt: "Learn the essential best practices for implementing B2B Commerce Cloud solutions and customization",
+    content: "",
+    featured: false,
+    published: true,
+    category: "Implementation",
+    tags: ["Commerce Cloud", "Best Practices", "B2B"],
+    author_name: "Sarah Johnson",
+    author_email: "sarah@serveb2b.com",
+    read_time: 5,
+    meta_title: "Salesforce B2B Commerce Cloud Best Practices",
+    meta_description: "Essential best practices for B2B Commerce Cloud implementation",
+    created_at: "2024-12-15T00:00:00Z",
+    updated_at: "2024-12-15T00:00:00Z",
+  },
+  {
+    id: 2,
+    title: "B2B E-commerce Development Trends 2025",
+    slug: "b2b-ecommerce-development-trends-2025",
+    excerpt: "Discover the upcoming trends shaping B2B e-commerce development in the digital age",
+    content: "",
+    featured: false,
+    published: true,
+    category: "Trends",
+    tags: ["Trends", "E-commerce", "2025"],
+    author_name: "Mike Chen",
+    author_email: "mike@serveb2b.com",
+    read_time: 8,
+    meta_title: "B2B E-commerce Development Trends 2025",
+    meta_description: "Upcoming trends in B2B e-commerce development",
+    created_at: "2024-12-10T00:00:00Z",
+    updated_at: "2024-12-10T00:00:00Z",
+  },
+  {
+    id: 3,
+    title: "Salesforce B2B Lightning Platform Development Guide",
+    slug: "salesforce-b2b-lightning-platform-development-guide",
+    excerpt: "A comprehensive guide to building custom B2B applications on Lightning Platform",
+    content: "",
+    featured: false,
+    published: true,
+    category: "Development",
+    tags: ["Lightning", "Development", "Guide"],
+    author_name: "David Kim",
+    author_email: "david@serveb2b.com",
+    read_time: 12,
+    meta_title: "Salesforce B2B Lightning Platform Development Guide",
+    meta_description: "Comprehensive guide to Lightning Platform development",
+    created_at: "2024-12-05T00:00:00Z",
+    updated_at: "2024-12-05T00:00:00Z",
+  },
+]
 
 export default function HomePage() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false)
+  const [articles, setArticles] = useState<BlogPost[]>(fallbackArticles)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function fetchArticles() {
+      try {
+        const { data: articlesData, error } = await supabase
+          .from("blog_posts")
+          .select("*")
+          .eq("published", true)
+          .order("created_at", { ascending: false })
+          .limit(3)
+
+        if (!error && articlesData && articlesData.length > 0) {
+          setArticles(articlesData)
+        }
+      } catch (error) {
+        console.warn("Using fallback articles:", error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchArticles()
+  }, [])
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    })
+  }
+
+  const getCategoryIcon = (category: string) => {
+    switch (category) {
+      case "Development":
+        return <Zap className="h-12 w-12 text-purple-600" />
+      case "Integration":
+        return <Users className="h-12 w-12 text-indigo-600" />
+      case "Trends":
+        return <Users className="h-12 w-12 text-indigo-600" />
+      default:
+        return <BookOpen className="h-12 w-12 text-blue-600" />
+    }
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
@@ -254,7 +378,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Articles Section */}
+      {/* Articles Section - Now Dynamic */}
       <section id="articles" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -268,59 +392,47 @@ export default function HomePage() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="w-full h-48 bg-gradient-to-r from-blue-100 to-blue-200 rounded-lg mb-4 flex items-center justify-center">
-                  <BookOpen className="h-12 w-12 text-blue-600" />
-                </div>
-                <CardTitle className="text-lg">Salesforce B2B Commerce Cloud Best Practices</CardTitle>
-                <CardDescription>
-                  Learn the essential best practices for implementing B2B Commerce Cloud solutions and customization
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-between text-sm text-gray-500">
-                  <span>5 min read</span>
-                  <span>Dec 15, 2024</span>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="w-full h-48 bg-gradient-to-r from-indigo-100 to-indigo-200 rounded-lg mb-4 flex items-center justify-center">
-                  <Users className="h-12 w-12 text-indigo-600" />
-                </div>
-                <CardTitle className="text-lg">B2B E-commerce Development Trends 2025</CardTitle>
-                <CardDescription>
-                  Discover the upcoming trends shaping B2B e-commerce development in the digital age
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-between text-sm text-gray-500">
-                  <span>8 min read</span>
-                  <span>Dec 10, 2024</span>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="w-full h-48 bg-gradient-to-r from-purple-100 to-purple-200 rounded-lg mb-4 flex items-center justify-center">
-                  <Zap className="h-12 w-12 text-purple-600" />
-                </div>
-                <CardTitle className="text-lg">Salesforce B2B Lightning Platform Development Guide</CardTitle>
-                <CardDescription>
-                  A comprehensive guide to building custom B2B applications on Lightning Platform
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-between text-sm text-gray-500">
-                  <span>12 min read</span>
-                  <span>Dec 5, 2024</span>
-                </div>
-              </CardContent>
-            </Card>
+            {articles.map((article) => (
+              <Link key={article.id} href={`/articles/${article.slug}`}>
+                <Card className="hover:shadow-lg transition-all duration-300 group cursor-pointer h-full border-blue-100 hover:border-blue-300">
+                  <CardHeader>
+                    <div className="w-full h-48 bg-gradient-to-r from-blue-100 to-blue-200 rounded-lg mb-4 flex items-center justify-center group-hover:from-blue-200 group-hover:to-blue-300 transition-all duration-300">
+                      {getCategoryIcon(article.category)}
+                    </div>
+                    <div className="flex items-center justify-between mb-2">
+                      <Badge variant="secondary">{article.category}</Badge>
+                      <div className="flex items-center text-sm text-gray-500">
+                        <Clock className="h-4 w-4 mr-1" />
+                        {article.read_time} min read
+                      </div>
+                    </div>
+                    <CardTitle className="text-lg group-hover:text-blue-600 transition-colors duration-300">
+                      {article.title}
+                    </CardTitle>
+                    <CardDescription className="line-clamp-3">{article.excerpt}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex items-center justify-between text-sm text-gray-500">
+                      <div className="flex items-center space-x-2">
+                        <User className="h-4 w-4" />
+                        <span>{article.author_name}</span>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <Calendar className="h-4 w-4" />
+                        <span>{formatDate(article.created_at)}</span>
+                      </div>
+                    </div>
+                    <div className="flex flex-wrap gap-1 mt-3">
+                      {article.tags.slice(0, 3).map((tag) => (
+                        <Badge key={tag} variant="outline" className="text-xs">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
           </div>
 
           <div className="text-center mt-12">
@@ -431,12 +543,12 @@ export default function HomePage() {
               <h4 className="font-semibold mb-4">B2B Resources</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
+                  <Link href="/articles" className="hover:text-white transition-colors">
                     B2B Articles
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
+                  <Link href="/solutions" className="hover:text-white transition-colors">
                     B2B Case Studies
                   </Link>
                 </li>

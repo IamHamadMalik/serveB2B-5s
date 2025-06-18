@@ -1,0 +1,27 @@
+-- Insert tags
+INSERT INTO blog_tags (name, slug) VALUES
+('Commerce Cloud', 'commerce-cloud'),
+('B2B', 'b2b'),
+('Implementation', 'implementation'),
+('Lightning', 'lightning'),
+('Development', 'development'),
+('Components', 'components'),
+('CX', 'cx'),
+('Optimization', 'optimization'),
+('Trends', 'trends'),
+('E-commerce', 'e-commerce'),
+('Pricing', 'pricing'),
+('Strategy', 'strategy'),
+('ERP', 'erp'),
+('Integration', 'integration'),
+('SAP', 'sap'),
+('Mobile', 'mobile'),
+('Design', 'design'),
+('UX', 'ux'),
+('Security', 'security'),
+('Best Practices', 'best-practices'),
+('Compliance', 'compliance'),
+('Analytics', 'analytics'),
+('Reporting', 'reporting'),
+('KPIs', 'kpis')
+ON CONFLICT (slug) DO NOTHING;

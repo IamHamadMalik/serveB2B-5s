@@ -1,4 +1,6 @@
-import type { Metadata } from "next"
+"use client"
+
+import { useState, useEffect } from "react"
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import { ArrowLeft, Calendar, Clock, User, Share2, BookOpen, Zap, Users } from "lucide-react"
@@ -6,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
+import { ContactModal } from "@/components/contact-modal"
 import { supabase } from "@/lib/supabase"
 
 type BlogPost = {
@@ -27,7 +30,7 @@ type BlogPost = {
   updated_at: string
 }
 
-// Enhanced fallback article data with more comprehensive content
+// Simplified fallback articles
 const fallbackArticles: Record<string, BlogPost> = {
   "complete-guide-salesforce-b2b-commerce-cloud-implementation": {
     id: 1,
@@ -37,14 +40,14 @@ const fallbackArticles: Record<string, BlogPost> = {
       "Learn step-by-step how to implement Salesforce B2B Commerce Cloud for your business, including best practices, common pitfalls, and optimization strategies.",
     content: `# Complete Guide to Salesforce B2B Commerce Cloud Implementation
 
-Implementing Salesforce B2B Commerce Cloud is a transformative journey that can revolutionize your business operations and customer experience. This comprehensive guide will walk you through every step of the process, from initial planning to go-live and beyond.
+Implementing Salesforce B2B Commerce Cloud is a transformative journey that can revolutionize your business operations and customer experience. This comprehensive guide will walk you through every step of the process.
 
 ## Understanding B2B Commerce Cloud
 
 Salesforce B2B Commerce Cloud is designed specifically for business-to-business transactions, offering features that cater to complex B2B requirements such as:
 
 - **Account-based pricing and catalogs** - Different pricing for different customer tiers
-- **Approval workflows for purchases** - Multi-level approval processes for large orders
+- **Approval workflows for purchases** - Multi-level approval processes for large orders  
 - **Complex product configurations** - Handle products with multiple variants and options
 - **Integration with ERP systems** - Seamless data flow between systems
 - **Multi-level account hierarchies** - Support for complex organizational structures
@@ -93,18 +96,6 @@ Design your technical architecture considering:
 - Establish development, testing, and production environments
 - Set up version control and deployment processes
 
-**Account Structure Configuration:**
-- Design account hierarchy models
-- Set up account types and classifications
-- Configure territory management
-- Establish account assignment rules
-
-**User Management:**
-- Define user roles and permission sets
-- Set up user provisioning processes
-- Configure single sign-on (SSO)
-- Establish user training programs
-
 ### Phase 2: Product Catalog and Pricing (Weeks 5-8)
 
 **Product Data Management:**
@@ -112,12 +103,6 @@ Design your technical architecture considering:
 - Set up product categories and hierarchies
 - Configure product attributes and specifications
 - Implement product search and filtering
-
-**Pricing Configuration:**
-- Set up price books and pricing tiers
-- Configure volume discounts and promotions
-- Implement contract-based pricing
-- Set up currency and tax management
 
 ### Phase 3: Storefront and User Experience (Weeks 9-12)
 
@@ -127,12 +112,6 @@ Design your technical architecture considering:
 - Create intuitive navigation and search
 - Optimize for performance and accessibility
 
-**Shopping Experience:**
-- Configure product detail pages
-- Implement shopping cart functionality
-- Set up wishlist and comparison features
-- Create personalized recommendations
-
 ### Phase 4: Order Management and Workflows (Weeks 13-16)
 
 **Order Processing:**
@@ -140,26 +119,6 @@ Design your technical architecture considering:
 - Set up approval workflows
 - Implement order tracking and notifications
 - Configure return and refund processes
-
-**Inventory Management:**
-- Set up inventory tracking and allocation
-- Configure stock level notifications
-- Implement backorder management
-- Set up inventory forecasting
-
-### Phase 5: Integration and Data Synchronization (Weeks 17-20)
-
-**ERP Integration:**
-- Connect with existing ERP systems
-- Set up real-time data synchronization
-- Configure order and invoice processing
-- Implement customer and product data sync
-
-**Payment Integration:**
-- Configure payment gateways
-- Set up payment methods and terms
-- Implement fraud detection and prevention
-- Configure payment reporting and reconciliation
 
 ## Best Practices for Success
 
@@ -185,26 +144,6 @@ Design your technical architecture considering:
 - Set up regular data audits
 - Create data stewardship roles
 
-**Migration Best Practices:**
-- Clean and validate data before migration
-- Perform test migrations in staging environments
-- Plan for data mapping and transformation
-- Establish rollback procedures
-
-### 3. Change Management
-
-**User Adoption:**
-- Develop comprehensive training programs
-- Create user guides and documentation
-- Establish super-user networks
-- Provide ongoing support and feedback channels
-
-**Communication Strategy:**
-- Regular stakeholder updates
-- Clear communication of benefits and changes
-- Address concerns and resistance proactively
-- Celebrate milestones and successes
-
 ## Common Pitfalls and How to Avoid Them
 
 ### 1. Insufficient Planning
@@ -219,82 +158,11 @@ Design your technical architecture considering:
 **Problem:** Users resistant to change or inadequately trained
 **Solution:** Comprehensive change management and training programs
 
-### 4. Integration Complexity
-**Problem:** Underestimating integration challenges and timelines
-**Solution:** Detailed integration planning and testing strategies
-
-### 5. Scope Creep
-**Problem:** Continuously adding features without considering impact
-**Solution:** Strict change control processes and stakeholder alignment
-
-## Post-Implementation Optimization
-
-### Performance Monitoring
-
-**Key Metrics to Track:**
-- Page load times and system performance
-- User adoption and engagement rates
-- Order conversion rates
-- Customer satisfaction scores
-- System uptime and reliability
-
-**Analytics and Reporting:**
-- Set up comprehensive dashboards
-- Implement real-time monitoring
-- Create automated alerts for issues
-- Regular performance reviews
-
-### Continuous Improvement
-
-**Feedback Collection:**
-- Regular user surveys and feedback sessions
-- Monitor support tickets and common issues
-- Analyze user behavior and usage patterns
-- Conduct periodic system audits
-
-**Feature Enhancement:**
-- Regular platform updates and patches
-- New feature rollouts based on user needs
-- Performance optimizations
-- Security updates and compliance maintenance
-
-## Advanced Features and Considerations
-
-### AI and Machine Learning
-
-**Einstein Features:**
-- Product recommendations
-- Predictive analytics
-- Automated customer service
-- Dynamic pricing optimization
-
-### Headless Commerce
-
-**Benefits:**
-- Flexibility in frontend development
-- Omnichannel consistency
-- Faster time-to-market for new features
-- Better performance and scalability
-
-### Sustainability and ESG
-
-**Implementation:**
-- Carbon footprint tracking
-- Sustainable product highlighting
-- Supply chain transparency
-- ESG reporting capabilities
-
 ## Conclusion
 
-Successful Salesforce B2B Commerce Cloud implementation requires careful planning, proper execution, and ongoing optimization. By following this comprehensive guide and working with experienced implementation partners, you can ensure a successful deployment that drives business growth and enhances customer experience.
+Successful Salesforce B2B Commerce Cloud implementation requires careful planning, proper execution, and ongoing optimization. By following this comprehensive guide and working with experienced implementation partners, you can ensure a successful deployment that drives business growth.
 
-The key to success lies in understanding your unique business requirements, planning thoroughly, and maintaining focus on user experience throughout the implementation process. Remember that implementation is just the beginning – continuous optimization and enhancement will ensure long-term success.
-
-## Ready to Get Started?
-
-If you're ready to begin your B2B Commerce Cloud journey, our expert team at ServeB2B is here to help. We provide end-to-end implementation services, from initial planning to post-go-live support.
-
-**Contact us today to discuss your specific requirements and learn how we can help you achieve your B2B e-commerce goals.**`,
+Ready to get started? Contact our expert team at ServeB2B for personalized guidance and support.`,
     featured: true,
     published: true,
     category: "Implementation",
@@ -304,7 +172,7 @@ If you're ready to begin your B2B Commerce Cloud journey, our expert team at Ser
     read_time: 12,
     meta_title: "Complete Guide to Salesforce B2B Commerce Cloud Implementation | ServeB2B",
     meta_description:
-      "Step-by-step guide to implementing Salesforce B2B Commerce Cloud with best practices, common pitfalls, and optimization strategies for successful deployment.",
+      "Step-by-step guide to implementing Salesforce B2B Commerce Cloud with best practices and optimization strategies.",
     created_at: "2024-12-18T00:00:00Z",
     updated_at: "2024-12-18T00:00:00Z",
   },
@@ -316,7 +184,7 @@ If you're ready to begin your B2B Commerce Cloud journey, our expert team at Ser
       "Discover the emerging trends in B2B e-commerce and how Salesforce Commerce Cloud is adapting to meet these new demands.",
     content: `# B2B E-commerce Trends That Will Shape 2025
 
-The B2B e-commerce landscape is evolving at an unprecedented pace, driven by changing buyer expectations, technological advancements, and market dynamics. As we look ahead to 2025, several transformative trends are emerging that will fundamentally reshape how businesses engage with their customers and conduct commerce.
+The B2B e-commerce landscape is evolving at an unprecedented pace, driven by changing buyer expectations, technological advancements, and market dynamics. As we look ahead to 2025, several transformative trends are emerging.
 
 ## 1. AI-Powered Personalization Revolution
 
@@ -336,13 +204,6 @@ Advanced forecasting capabilities are transforming how B2B companies manage thei
 - **Churn prediction** to proactively retain valuable customers
 - **Market trend analysis** for strategic planning
 
-### Implementation in Salesforce
-Salesforce Einstein AI provides powerful tools for B2B personalization:
-- Einstein Product Recommendations
-- Einstein Search for intelligent product discovery
-- Einstein Analytics for predictive insights
-- Einstein Bots for automated customer service
-
 ## 2. Mobile-First B2B Experiences
 
 The shift to mobile-first B2B commerce is accelerating, with mobile transactions expected to account for over 60% of B2B purchases by 2025.
@@ -360,13 +221,6 @@ B2B platforms are implementing mobile-specific features:
 - **Barcode scanning** for quick reordering
 - **Location-based services** for inventory and delivery information
 - **Touch-optimized interfaces** for complex product configurations
-
-### Mobile Payment Integration
-Streamlined payment processes optimized for mobile devices:
-- **Digital wallets** integration (Apple Pay, Google Pay)
-- **One-click purchasing** for repeat orders
-- **Biometric authentication** for secure transactions
-- **Mobile invoicing** and payment tracking
 
 ## 3. Self-Service Customer Portal Evolution
 
@@ -386,13 +240,6 @@ AI-powered support is reducing the need for human intervention:
 - **Video tutorials** and interactive guides
 - **Community forums** for peer-to-peer support
 
-### Order Management Excellence
-Enhanced order management capabilities:
-- **Order tracking** with real-time updates
-- **Delivery scheduling** and modification options
-- **Return and exchange** self-service processes
-- **Invoice management** and payment history
-
 ## 4. Integration-First Architecture
 
 Seamless integration is becoming critical for B2B success, with companies requiring average of 12+ system integrations.
@@ -411,13 +258,6 @@ Breaking down monolithic systems into manageable components:
 - **Technology flexibility** for different service requirements
 - **Faster deployment** of new features and updates
 
-### Cloud-Native Solutions
-Leveraging cloud infrastructure for better performance:
-- **Auto-scaling** to handle traffic spikes
-- **Global content delivery** for faster load times
-- **Disaster recovery** and backup capabilities
-- **Cost optimization** through usage-based pricing
-
 ## 5. Sustainability and ESG Focus
 
 Environmental, Social, and Governance (ESG) factors are increasingly driving B2B purchasing decisions.
@@ -435,38 +275,6 @@ Highlighting and promoting environmentally friendly products:
 - **Sustainability scores** for easy comparison
 - **Alternative product suggestions** with lower environmental impact
 - **Bulk purchasing incentives** to reduce packaging waste
-
-### ESG Reporting Capabilities
-Integrated reporting tools for compliance and transparency:
-- **Automated ESG data collection** from transactions
-- **Compliance reporting** for regulatory requirements
-- **Sustainability dashboards** for stakeholder communication
-- **Third-party verification** integration
-
-## 6. Advanced Analytics and Business Intelligence
-
-Data-driven decision making is becoming more sophisticated with real-time insights and predictive capabilities.
-
-### Real-Time Dashboards
-Instant visibility into key performance metrics:
-- **Sales performance** tracking across channels
-- **Customer behavior** analysis and insights
-- **Inventory levels** and turnover rates
-- **Market trends** and competitive analysis
-
-### Predictive Insights
-Forecasting capabilities for strategic planning:
-- **Sales forecasting** with seasonal adjustments
-- **Customer behavior prediction** for targeted marketing
-- **Inventory optimization** to reduce carrying costs
-- **Market opportunity identification** for growth
-
-### Customer Journey Analytics
-Understanding the complete buyer journey:
-- **Touchpoint analysis** across all channels
-- **Conversion funnel** optimization opportunities
-- **Customer satisfaction** tracking and improvement
-- **Retention strategy** development and execution
 
 ## How Salesforce Commerce Cloud is Adapting
 
@@ -490,12 +298,6 @@ Salesforce is continuously evolving its platform to support these emerging trend
 - Progressive Web App capabilities
 - Mobile payment integration options
 
-### Sustainability Cloud Integration
-- ESG tracking and reporting capabilities
-- Carbon footprint calculation tools
-- Sustainable supply chain management
-- Compliance and certification tracking
-
 ## Preparing Your Business for 2025
 
 To stay competitive in the evolving B2B landscape, organizations should:
@@ -518,35 +320,21 @@ To stay competitive in the evolving B2B landscape, organizations should:
 - **Create interactive tutorials** and guides
 - **Gather feedback** and continuously improve self-service options
 
-### 4. Strengthen Integration Strategies
-- **Audit current integrations** and identify improvement opportunities
-- **Implement API management** strategies and governance
-- **Plan for future integrations** and scalability requirements
-- **Invest in integration platforms** and tools
-
-### 5. Incorporate Sustainability Metrics
-- **Assess current environmental impact** of operations
-- **Set sustainability goals** and targets
-- **Implement tracking and reporting** systems
-- **Communicate progress** to stakeholders and customers
-
 ## The Future is Now
 
-The B2B e-commerce landscape of 2025 will be characterized by intelligent, mobile-first, and sustainable commerce experiences. Companies that start preparing now—by investing in AI, prioritizing mobile experiences, enhancing self-service capabilities, strengthening integrations, and incorporating sustainability metrics—will be best positioned to capitalize on these emerging trends.
+The B2B e-commerce landscape of 2025 will be characterized by intelligent, mobile-first, and sustainable commerce experiences. Companies that start preparing now will be best positioned to capitalize on these emerging trends.
 
-The transformation is already underway, and the businesses that embrace these changes will not only survive but thrive in the new B2B commerce ecosystem. The question isn't whether these trends will reshape B2B commerce, but how quickly your organization can adapt to leverage them for competitive advantage.
-
-**Ready to future-proof your B2B commerce strategy? Contact ServeB2B today to learn how we can help you implement these cutting-edge trends and technologies.**`,
+Ready to future-proof your B2B commerce strategy? Contact ServeB2B today to learn how we can help you implement these cutting-edge trends and technologies.`,
     featured: true,
     published: true,
     category: "Trends",
-    tags: ["Trends", "B2B", "E-commerce", "2025", "AI", "Mobile"],
+    tags: ["Trends", "B2B", "E-commerce", "2025", "AI"],
     author_name: "Mike Chen",
     author_email: "mike@serveb2b.com",
     read_time: 8,
-    meta_title: "B2B E-commerce Trends That Will Shape 2025 | ServeB2B Insights",
+    meta_title: "B2B E-commerce Trends That Will Shape 2025 | ServeB2B",
     meta_description:
-      "Discover emerging B2B e-commerce trends for 2025 including AI personalization, mobile-first experiences, sustainability focus, and how Salesforce Commerce Cloud is adapting.",
+      "Discover emerging B2B e-commerce trends for 2025 including AI personalization and mobile-first experiences.",
     created_at: "2024-12-15T00:00:00Z",
     updated_at: "2024-12-15T00:00:00Z",
   },
@@ -590,817 +378,300 @@ B2B commerce has unique requirements that often necessitate custom components be
 
 ## Building Your First B2B Lightning Component
 
-Let's create a comprehensive product configurator component that handles complex B2B scenarios:
+Let's create a comprehensive product configurator component that handles complex B2B scenarios.
 
 ### Component Structure
 
-\`\`\`javascript
-// productConfigurator.js
-import { LightningElement, api, track, wire } from 'lwc';
-import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import { getRecord } from 'lightning/uiRecordApi';
-import getProductOptions from '@salesforce/apex/ProductConfiguratorController.getProductOptions';
-import calculatePrice from '@salesforce/apex/ProductConfiguratorController.calculatePrice';
-import addToCart from '@salesforce/apex/ProductConfiguratorController.addToCart';
+The component includes features for option selection, price calculation, and cart integration. It demonstrates how to build reusable components that can handle the complexity of B2B commerce requirements.
 
-export default class ProductConfigurator extends LightningElement {
-    @api productId;
-    @api accountId;
-    @track selectedOptions = {};
-    @track totalPrice = 0;
-    @track isLoading = false;
-    @track productOptions = [];
-    @track errors = [];
-
-    // Wire method to get product options
-    @wire(getProductOptions, { productId: '$productId', accountId: '$accountId' })
-    wiredProductOptions({ error, data }) {
-        if (data) {
-            this.productOptions = data;
-            this.initializeDefaultOptions();
-        } else if (error) {
-            this.handleError('Failed to load product options', error);
-        }
-    }
-
-    initializeDefaultOptions() {
-        // Set default options for required fields
-        this.productOptions.forEach(option => {
-            if (option.required && option.defaultValue) {
-                this.selectedOptions[option.id] = option.defaultValue;
-            }
-        });
-        this.calculateTotalPrice();
-    }
-
-    handleOptionChange(event) {
-        const optionId = event.target.dataset.id;
-        const value = event.target.value;
-        const optionType = event.target.dataset.type;
-        
-        // Handle different option types
-        switch(optionType) {
-            case 'checkbox':
-                this.handleCheckboxChange(optionId, event.target.checked);
-                break;
-            case 'quantity':
-                this.handleQuantityChange(optionId, parseInt(value));
-                break;
-            default:
-                this.selectedOptions[optionId] = value;
-        }
-        
-        this.validateOptions();
-        this.calculateTotalPrice();
-    }
-
-    handleCheckboxChange(optionId, checked) {
-        if (checked) {
-            this.selectedOptions[optionId] = true;
-        } else {
-            delete this.selectedOptions[optionId];
-        }
-    }
-
-    handleQuantityChange(optionId, quantity) {
-        if (quantity > 0) {
-            this.selectedOptions[optionId] = quantity;
-        } else {
-            delete this.selectedOptions[optionId];
-        }
-    }
-
-    validateOptions() {
-        this.errors = [];
-        
-        this.productOptions.forEach(option => {
-            if (option.required && !this.selectedOptions[option.id]) {
-                this.errors.push(\`\${option.label} is required\`);
-            }
-            
-            // Custom validation rules
-            if (option.validationRules) {
-                option.validationRules.forEach(rule => {
-                    if (!this.validateRule(rule, this.selectedOptions[option.id])) {
-                        this.errors.push(rule.errorMessage);
-                    }
-                });
-            }
-        });
-    }
-
-    validateRule(rule, value) {
-        switch(rule.type) {
-            case 'min':
-                return value >= rule.value;
-            case 'max':
-                return value <= rule.value;
-            case 'pattern':
-                return new RegExp(rule.value).test(value);
-            default:
-                return true;
-        }
-    }
-
-    async calculateTotalPrice() {
-        try {
-            this.isLoading = true;
-            const result = await calculatePrice({
-                productId: this.productId,
-                accountId: this.accountId,
-                selectedOptions: this.selectedOptions
-            });
-            
-            this.totalPrice = result.totalPrice;
-            this.updatePriceBreakdown(result.priceBreakdown);
-        } catch (error) {
-            this.handleError('Failed to calculate price', error);
-        } finally {
-            this.isLoading = false;
-        }
-    }
-
-    updatePriceBreakdown(breakdown) {
-        // Update UI with detailed price breakdown
-        this.priceBreakdown = breakdown;
-    }
-
-    async handleAddToCart() {
-        if (this.errors.length > 0) {
-            this.showToast('Error', 'Please fix validation errors before adding to cart', 'error');
-            return;
-        }
-
-        try {
-            this.isLoading = true;
-            const result = await addToCart({
-                productId: this.productId,
-                accountId: this.accountId,
-                selectedOptions: this.selectedOptions,
-                quantity: this.quantity || 1
-            });
-
-            if (result.success) {
-                this.showToast('Success', 'Product added to cart successfully', 'success');
-                this.dispatchEvent(new CustomEvent('productadded', {
-                    detail: {
-                        productId: this.productId,
-                        cartItemId: result.cartItemId
-                    }
-                }));
-            } else {
-                this.showToast('Error', result.errorMessage, 'error');
-            }
-        } catch (error) {
-            this.handleError('Failed to add product to cart', error);
-        } finally {
-            this.isLoading = false;
-        }
-    }
-
-    handleError(message, error) {
-        console.error(message, error);
-        this.showToast('Error', message, 'error');
-    }
-
-    showToast(title, message, variant) {
-        const event = new ShowToastEvent({
-            title: title,
-            message: message,
-            variant: variant
-        });
-        this.dispatchEvent(event);
-    }
-
-    // Getters for template
-    get hasErrors() {
-        return this.errors.length > 0;
-    }
-
-    get isAddToCartDisabled() {
-        return this.isLoading || this.hasErrors;
-    }
-
-    get formattedPrice() {
-        return new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD'
-        }).format(this.totalPrice);
-    }
-}
-\`\`\`
-
-### Component Template
-
-\`\`\`html
-<!-- productConfigurator.html -->
-<template>
-    <div class="product-configurator">
-        <div class="slds-card">
-            <div class="slds-card__header">
-                <h2 class="slds-card__header-title">
-                    <span>Product Configuration</span>
-                </h2>
-            </div>
-            
-            <div class="slds-card__body slds-card__body_inner">
-                <!-- Loading Spinner -->
-                <template if:true={isLoading}>
-                    <lightning-spinner alternative-text="Loading..."></lightning-spinner>
-                </template>
-
-                <!-- Error Messages -->
-                <template if:true={hasErrors}>
-                    <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error">
-                        <ul>
-                            <template for:each={errors} for:item="error">
-                                <li key={error}>{error}</li>
-                            </template>
-                        </ul>
-                    </div>
-                </template>
-
-                <!-- Product Options -->
-                <div class="slds-form slds-form_stacked">
-                    <template for:each={productOptions} for:item="option">
-                        <div key={option.id} class="slds-form-element">
-                            <label class="slds-form-element__label">
-                                {option.label}
-                                <template if:true={option.required}>
-                                    <abbr class="slds-required" title="required">*</abbr>
-                                </template>
-                            </label>
-                            
-                            <!-- Text Input -->
-                            <template if:true={option.isText}>
-                                <div class="slds-form-element__control">
-                                    <input type="text" 
-                                           class="slds-input" 
-                                           data-id={option.id}
-                                           data-type="text"
-                                           placeholder={option.placeholder}
-                                           onchange={handleOptionChange} />
-                                </div>
-                            </template>
-
-                            <!-- Picklist -->
-                            <template if:true={option.isPicklist}>
-                                <div class="slds-form-element__control">
-                                    <div class="slds-select_container">
-                                        <select class="slds-select" 
-                                                data-id={option.id}
-                                                data-type="picklist"
-                                                onchange={handleOptionChange}>
-                                            <option value="">--Select--</option>
-                                            <template for:each={option.values} for:item="value">
-                                                <option key={value.id} value={value.id}>
-                                                    {value.label}
-                                                </option>
-                                            </template>
-                                        </select>
-                                    </div>
-                                </div>
-                            </template>
-
-                            <!-- Checkbox -->
-                            <template if:true={option.isCheckbox}>
-                                <div class="slds-form-element__control">
-                                    <div class="slds-checkbox">
-                                        <input type="checkbox" 
-                                               id={option.id}
-                                               data-id={option.id}
-                                               data-type="checkbox"
-                                               onchange={handleOptionChange} />
-                                        <label class="slds-checkbox__label" for={option.id}>
-                                            <span class="slds-checkbox_faux"></span>
-                                            <span class="slds-form-element__label">{option.description}</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </template>
-
-                            <!-- Quantity Input -->
-                            <template if:true={option.isQuantity}>
-                                <div class="slds-form-element__control">
-                                    <input type="number" 
-                                           class="slds-input" 
-                                           data-id={option.id}
-                                           data-type="quantity"
-                                           min="0"
-                                           step="1"
-                                           onchange={handleOptionChange} />
-                                </div>
-                            </template>
-
-                            <!-- Help Text -->
-                            <template if:true={option.helpText}>
-                                <div class="slds-form-element__help">
-                                    {option.helpText}
-                                </div>
-                            </template>
-                        </div>
-                    </template>
-                </div>
-
-                <!-- Price Summary -->
-                <div class="slds-box slds-theme_shade slds-m-top_medium">
-                    <h3 class="slds-text-heading_small">Price Summary</h3>
-                    <div class="slds-grid slds-wrap">
-                        <div class="slds-col slds-size_1-of-2">
-                            <span class="slds-text-body_regular">Total Price:</span>
-                        </div>
-                        <div class="slds-col slds-size_1-of-2 slds-text-align_right">
-                            <span class="slds-text-heading_medium">{formattedPrice}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="slds-card__footer">
-                <lightning-button variant="brand" 
-                                  label="Add to Cart" 
-                                  onclick={handleAddToCart}
-                                  disabled={isAddToCartDisabled}>
-                </lightning-button>
-            </div>
-        </div>
-    </div>
-</template>
-\`\`\`
+### Key Features:
+- Dynamic option rendering based on product configuration
+- Real-time price calculations with tier-based pricing
+- Validation rules for required and conditional fields
+- Integration with Salesforce B2B Commerce Cloud APIs
+- Error handling and user feedback
+- Mobile-responsive design
 
 ## Advanced B2B Component Patterns
 
 ### 1. Approval Workflow Component
 
-For handling complex B2B approval processes:
+B2B transactions often require approval workflows. A custom approval component can streamline this process by providing visibility into approval status and enabling quick approval actions.
 
-\`\`\`javascript
-// approvalWorkflow.js
-import { LightningElement, api, track } from 'lwc';
-import submitForApproval from '@salesforce/apex/ApprovalController.submitForApproval';
-import getApprovalHistory from '@salesforce/apex/ApprovalController.getApprovalHistory';
-
-export default class ApprovalWorkflow extends LightningElement {
-    @api recordId;
-    @api objectApiName;
-    @track approvalSteps = [];
-    @track currentStep = 0;
-    @track isSubmitting = false;
-
-    async connectedCallback() {
-        await this.loadApprovalHistory();
-    }
-
-    async loadApprovalHistory() {
-        try {
-            const history = await getApprovalHistory({
-                recordId: this.recordId,
-                objectApiName: this.objectApiName
-            });
-            this.processApprovalHistory(history);
-        } catch (error) {
-            console.error('Error loading approval history:', error);
-        }
-    }
-
-    processApprovalHistory(history) {
-        // Process and display approval steps
-        this.approvalSteps = history.map((step, index) => ({
-            ...step,
-            stepNumber: index + 1,
-            isCompleted: step.status === 'Approved',
-            isPending: step.status === 'Pending',
-            isRejected: step.status === 'Rejected'
-        }));
-    }
-
-    async handleSubmitForApproval() {
-        try {
-            this.isSubmitting = true;
-            const result = await submitForApproval({
-                recordId: this.recordId,
-                comments: this.template.querySelector('[data-id="comments"]').value
-            });
-            
-            if (result.success) {
-                this.showToast('Success', 'Submitted for approval successfully', 'success');
-                await this.loadApprovalHistory();
-            } else {
-                this.showToast('Error', result.errorMessage, 'error');
-            }
-        } catch (error) {
-            this.showToast('Error', 'Failed to submit for approval', 'error');
-        } finally {
-            this.isSubmitting = false;
-        }
-    }
-}
-\`\`\`
+**Key Features:**
+- Visual approval process timeline
+- Automated notifications and escalations
+- Mobile-friendly approval interfaces
+- Integration with Salesforce approval processes
+- Custom approval criteria and routing
 
 ### 2. Dynamic Pricing Component
 
-For real-time B2B pricing calculations:
+B2B pricing is complex, often involving account-specific pricing, volume discounts, and contract terms. A dynamic pricing component can calculate prices in real-time based on various factors.
 
-\`\`\`javascript
-// dynamicPricing.js
-import { LightningElement, api, track, wire } from 'lwc';
-import calculateDynamicPrice from '@salesforce/apex/PricingController.calculateDynamicPrice';
-import { refreshApex } from '@salesforce/apex';
+**Key Features:**
+- Real-time price calculations
+- Volume discount tiers
+- Contract-based pricing
+- Currency conversion
+- Tax calculations
+- Promotional pricing
 
-export default class DynamicPricing extends LightningElement {
-    @api productId;
-    @api accountId;
-    @api quantity = 1;
-    @track pricingTiers = [];
-    @track currentPrice = 0;
-    @track savings = 0;
-    @track isLoading = false;
+### 3. Account Dashboard Component
 
-    @wire(calculateDynamicPrice, { 
-        productId: '$productId', 
-        accountId: '$accountId', 
-        quantity: '$quantity' 
-    })
-    wiredPricing({ error, data }) {
-        if (data) {
-            this.processPricingData(data);
-        } else if (error) {
-            console.error('Pricing calculation error:', error);
-        }
-    }
+Provide customers with comprehensive account information and self-service capabilities.
 
-    processPricingData(data) {
-        this.currentPrice = data.currentPrice;
-        this.pricingTiers = data.pricingTiers;
-        this.savings = data.savings;
-        this.isLoading = false;
-    }
-
-    handleQuantityChange(event) {
-        this.quantity = parseInt(event.target.value);
-        this.isLoading = true;
-        // Wire will automatically refresh with new quantity
-    }
-
-    get formattedCurrentPrice() {
-        return this.formatCurrency(this.currentPrice);
-    }
-
-    get formattedSavings() {
-        return this.formatCurrency(this.savings);
-    }
-
-    formatCurrency(amount) {
-        return new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD'
-        }).format(amount);
-    }
-}
-\`\`\`
+**Key Features:**
+- Order history and tracking
+- Account balance and credit limits
+- Custom catalogs and pricing
+- Usage analytics and reporting
+- Document management
 
 ## Best Practices for B2B Lightning Components
 
 ### 1. Performance Optimization
 
 **Lazy Loading:**
-\`\`\`javascript
-// Implement lazy loading for large datasets
-async loadData() {
-    if (!this.dataLoaded) {
-        this.data = await this.fetchData();
-        this.dataLoaded = true;
-    }
-}
-\`\`\`
+- Load data only when needed
+- Implement pagination for large datasets
+- Use caching for frequently accessed data
+- Optimize API calls and reduce server round trips
 
-**Caching Strategies:**
-\`\`\`javascript
-// Cache frequently accessed data
-@wire(getProductData, { productId: '$productId' })
-wiredProductData({ error, data }) {
-    if (data) {
-        // Cache the data
-        this.cachedProductData = { ...data };
-    }
-}
-\`\`\`
-
-**Debouncing:**
-\`\`\`javascript
-// Debounce expensive operations
-handleSearchInput(event) {
-    clearTimeout(this.searchTimeout);
-    this.searchTimeout = setTimeout(() => {
-        this.performSearch(event.target.value);
-    }, 300);
-}
-\`\`\`
+**Efficient Rendering:**
+- Use conditional rendering to minimize DOM updates
+- Implement virtual scrolling for large lists
+- Optimize component lifecycle methods
+- Use Lightning Data Service when appropriate
 
 ### 2. Error Handling
 
 **Comprehensive Error Management:**
-\`\`\`javascript
-handleError(operation, error) {
-    console.error(\`Error in \${operation}:\`, error);
-    
-    let userMessage = 'An unexpected error occurred.';
-    
-    if (error.body && error.body.message) {
-        userMessage = error.body.message;
-    } else if (error.message) {
-        userMessage = error.message;
-    }
-    
-    this.showToast('Error', userMessage, 'error');
-    
-    // Log error for monitoring
-    this.logError(operation, error);
-}
-\`\`\`
+- Implement try-catch blocks for all async operations
+- Provide meaningful error messages to users
+- Log errors for debugging and monitoring
+- Implement retry mechanisms for transient failures
+
+**User Experience:**
+- Show loading states during operations
+- Provide clear feedback for user actions
+- Implement graceful degradation for failures
+- Use toast messages for notifications
 
 ### 3. Accessibility
 
-**ARIA Labels and Roles:**
-\`\`\`html
-<div role="tabpanel" 
-     aria-labelledby="tab-1" 
-     aria-hidden="false">
-    <!-- Content -->
-</div>
-\`\`\`
+**ARIA Support:**
+- Implement proper ARIA labels and roles
+- Ensure keyboard navigation support
+- Provide screen reader compatibility
+- Follow WCAG guidelines
 
-**Keyboard Navigation:**
-\`\`\`javascript
-handleKeyDown(event) {
-    switch(event.keyCode) {
-        case 13: // Enter
-        case 32: // Space
-            this.handleSelection(event);
-            break;
-        case 27: // Escape
-            this.handleCancel();
-            break;
-    }
-}
-\`\`\`
+**Responsive Design:**
+- Mobile-first approach
+- Touch-friendly interfaces
+- Flexible layouts
+- Optimized for various screen sizes
 
 ### 4. Testing
 
-**Jest Unit Tests:**
-\`\`\`javascript
-// __tests__/productConfigurator.test.js
-import { createElement } from 'lwc';
-import ProductConfigurator from 'c/productConfigurator';
+**Unit Testing:**
+- Write comprehensive Jest tests
+- Test component behavior and interactions
+- Mock external dependencies
+- Achieve high code coverage
 
-describe('c-product-configurator', () => {
-    afterEach(() => {
-        while (document.body.firstChild) {
-            document.body.removeChild(document.body.firstChild);
-        }
-    });
-
-    it('renders product options correctly', () => {
-        const element = createElement('c-product-configurator', {
-            is: ProductConfigurator
-        });
-        
-        element.productId = 'test-product-id';
-        document.body.appendChild(element);
-        
-        // Test assertions
-        expect(element.shadowRoot.querySelector('.product-configurator')).toBeTruthy();
-    });
-
-    it('calculates price correctly', async () => {
-        const element = createElement('c-product-configurator', {
-            is: ProductConfigurator
-        });
-        
-        element.selectedOptions = { option1: 'value1' };
-        await element.calculateTotalPrice();
-        
-        expect(element.totalPrice).toBeGreaterThan(0);
-    });
-});
-\`\`\`
+**Integration Testing:**
+- Test with different user profiles
+- Validate with various data scenarios
+- Test error conditions and edge cases
+- Performance testing under load
 
 ## Integration with B2B Commerce Cloud
 
-### Cart Integration
+Custom components need to integrate seamlessly with Commerce Cloud APIs:
 
-\`\`\`javascript
-// Integration with Commerce Cloud cart
-async addToCommerceCart() {
-    const cartItem = {
-        productId: this.productId,
-        quantity: this.quantity,
-        customAttributes: this.selectedOptions
-    };
-    
-    // Use Commerce Cloud APIs
-    const result = await this.callCommerceAPI('addToCart', cartItem);
-    return result;
-}
-\`\`\`
+### Cart Management
+- Add products to cart with custom configurations
+- Update quantities and options
+- Handle cart validation and errors
+- Integrate with checkout processes
 
-### Catalog Integration
+### Product Catalog Access
+- Retrieve product information and pricing
+- Filter products based on account access
+- Handle product variants and options
+- Implement search and navigation
 
-\`\`\`javascript
-// Integration with product catalog
-@wire(getProductCatalog, { accountId: '$accountId' })
-wiredCatalog({ error, data }) {
-    if (data) {
-        this.availableProducts = data.filter(product => 
-            this.hasAccess(product, this.accountId)
-        );
-    }
-}
-\`\`\`
+### Order Processing
+- Create and manage orders
+- Handle approval workflows
+- Track order status and updates
+- Generate invoices and documents
+
+## Security Considerations
+
+### Data Protection
+- Implement proper field-level security
+- Validate user permissions
+- Sanitize user inputs
+- Protect sensitive information
+
+### API Security
+- Use secure authentication methods
+- Implement rate limiting
+- Validate API responses
+- Handle security exceptions
 
 ## Deployment and Maintenance
 
 ### 1. Deployment Strategy
 
-**Scratch Org Development:**
-\`\`\`bash
-# Create scratch org
-sfdx force:org:create -f config/project-scratch-def.json -a MyScratchOrg
+**Development Process:**
+- Use scratch orgs for development
+- Implement version control with Git
+- Set up CI/CD pipelines
+- Test in staging environments
 
-# Push source
-sfdx force:source:push -u MyScratchOrg
+**Release Management:**
+- Plan deployment schedules
+- Implement rollback procedures
+- Monitor post-deployment performance
+- Gather user feedback
 
-# Run tests
-sfdx force:apex:test:run -u MyScratchOrg
-\`\`\`
-
-**CI/CD Pipeline:**
-\`\`\`yaml
-# .github/workflows/deploy.yml
-name: Deploy to Salesforce
-on:
-  push:
-    branches: [main]
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Install Salesforce CLI
-        run: npm install sfdx-cli --global
-      - name: Deploy to org
-        run: sfdx force:source:deploy -p force-app -u production
-\`\`\`
-
-### 2. Version Control
-
-**Git Best Practices:**
-- Use feature branches for development
-- Implement code review processes
-- Tag releases for version tracking
-- Maintain comprehensive commit messages
-
-### 3. Monitoring and Maintenance
+### 2. Monitoring and Maintenance
 
 **Performance Monitoring:**
-\`\`\`javascript
-// Add performance tracking
-const startTime = performance.now();
-await this.performOperation();
-const endTime = performance.now();
-console.log(\`Operation took \${endTime - startTime} milliseconds\`);
-\`\`\`
+- Track component load times
+- Monitor API response times
+- Analyze user interactions
+- Identify optimization opportunities
 
-**Error Logging:**
-\`\`\`javascript
-// Implement comprehensive error logging
-logError(component, method, error) {
-    const errorLog = {
-        component: component,
-        method: method,
-        error: error.message,
-        stack: error.stack,
-        timestamp: new Date().toISOString(),
-        userId: this.currentUserId
-    };
-    
-    // Send to logging service
-    this.sendToLoggingService(errorLog);
-}
-\`\`\`
+**Maintenance:**
+- Regular security updates
+- Bug fixes and improvements
+- Feature enhancements
+- Documentation updates
+
+## Advanced Features
+
+### AI Integration
+- Einstein recommendations
+- Predictive analytics
+- Natural language processing
+- Machine learning insights
+
+### Mobile Optimization
+- Progressive Web App features
+- Offline capabilities
+- Touch gestures
+- Mobile-specific workflows
+
+### Analytics Integration
+- User behavior tracking
+- Performance metrics
+- Business intelligence
+- Custom reporting
 
 ## Conclusion
 
 Custom Lightning components are essential for creating sophisticated B2B commerce experiences that meet complex business requirements. By following the patterns and best practices outlined in this guide, you can build components that are:
 
 - **Performant** and scalable
-- **Accessible** to all users
+- **Accessible** to all users  
 - **Maintainable** and testable
 - **Integrated** with B2B Commerce Cloud
 - **Secure** and compliant
 
 The key to success lies in understanding your specific B2B requirements, designing components with reusability in mind, and following Salesforce development best practices throughout the development lifecycle.
 
-**Ready to build custom Lightning components for your B2B commerce platform? Contact ServeB2B today for expert development services and consultation.**`,
+Ready to build custom Lightning components for your B2B commerce platform? Contact ServeB2B today for expert development services and consultation.`,
     featured: false,
     published: true,
     category: "Development",
-    tags: ["Lightning", "Development", "Components", "B2B", "Custom"],
+    tags: ["Lightning", "Development", "Components", "B2B"],
     author_name: "David Kim",
     author_email: "david@serveb2b.com",
     read_time: 15,
     meta_title: "Custom Lightning Components for B2B Commerce | Development Guide",
     meta_description:
-      "Learn to build powerful custom Lightning components for B2B commerce scenarios with comprehensive code examples, best practices, and integration patterns.",
+      "Learn to build powerful custom Lightning components for B2B commerce scenarios with code examples and best practices.",
     created_at: "2024-12-10T00:00:00Z",
     updated_at: "2024-12-10T00:00:00Z",
   },
 }
 
-async function getArticle(slug: string): Promise<BlogPost | null> {
-  try {
-    const { data, error } = await supabase
-      .from("blog_posts")
-      .select("*")
-      .eq("slug", slug)
-      .eq("published", true)
-      .single()
+export default function ArticlePage({ params }: { params: { slug: string } }) {
+  const [article, setArticle] = useState<BlogPost | null>(null)
+  const [relatedArticles, setRelatedArticles] = useState<BlogPost[]>([])
+  const [loading, setLoading] = useState(true)
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false)
 
-    if (error || !data) {
-      // Return fallback data if available
-      return fallbackArticles[slug] || null
+  useEffect(() => {
+    async function fetchArticleData() {
+      try {
+        setLoading(true)
+
+        // Try to get article from database
+        const { data: articleData, error: articleError } = await supabase
+          .from("blog_posts")
+          .select("*")
+          .eq("slug", params.slug)
+          .eq("published", true)
+          .single()
+
+        let currentArticle: BlogPost | null = null
+
+        if (articleError || !articleData) {
+          // Use fallback data
+          currentArticle = fallbackArticles[params.slug] || null
+        } else {
+          currentArticle = articleData
+        }
+
+        if (!currentArticle) {
+          notFound()
+          return
+        }
+
+        setArticle(currentArticle)
+
+        // Get related articles
+        const { data: relatedData, error: relatedError } = await supabase
+          .from("blog_posts")
+          .select("*")
+          .eq("published", true)
+          .eq("category", currentArticle.category)
+          .neq("slug", params.slug)
+          .limit(3)
+
+        if (relatedError || !relatedData || relatedData.length === 0) {
+          // Use fallback related articles
+          const fallbackRelated = Object.values(fallbackArticles)
+            .filter((art) => art.category === currentArticle!.category && art.slug !== params.slug)
+            .slice(0, 3)
+          setRelatedArticles(fallbackRelated)
+        } else {
+          setRelatedArticles(relatedData)
+        }
+      } catch (error) {
+        console.error("Error fetching article:", error)
+        const fallbackArticle = fallbackArticles[params.slug]
+        if (fallbackArticle) {
+          setArticle(fallbackArticle)
+          const fallbackRelated = Object.values(fallbackArticles)
+            .filter((art) => art.category === fallbackArticle.category && art.slug !== params.slug)
+            .slice(0, 3)
+          setRelatedArticles(fallbackRelated)
+        } else {
+          notFound()
+        }
+      } finally {
+        setLoading(false)
+      }
     }
 
-    return data
-  } catch (error) {
-    console.error("Error fetching article:", error)
-    return fallbackArticles[slug] || null
-  }
-}
-
-async function getRelatedArticles(category: string, currentSlug: string): Promise<BlogPost[]> {
-  try {
-    const { data, error } = await supabase
-      .from("blog_posts")
-      .select("*")
-      .eq("published", true)
-      .eq("category", category)
-      .neq("slug", currentSlug)
-      .limit(3)
-
-    if (error || !data || data.length === 0) {
-      // Return fallback related articles
-      return Object.values(fallbackArticles)
-        .filter((article) => article.category === category && article.slug !== currentSlug)
-        .slice(0, 3)
-    }
-
-    return data
-  } catch (error) {
-    console.error("Error fetching related articles:", error)
-    return Object.values(fallbackArticles)
-      .filter((article) => article.category === category && article.slug !== currentSlug)
-      .slice(0, 3)
-  }
-}
-
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const article = await getArticle(params.slug)
-
-  if (!article) {
-    return {
-      title: "Article Not Found | ServeB2B",
-      description: "The requested article could not be found.",
-    }
-  }
-
-  return {
-    title: article.meta_title || article.title,
-    description: article.meta_description || article.excerpt,
-    openGraph: {
-      title: article.title,
-      description: article.excerpt,
-      type: "article",
-      publishedTime: article.created_at,
-      authors: [article.author_name],
-      tags: article.tags,
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: article.title,
-      description: article.excerpt,
-    },
-  }
-}
-
-export default async function ArticlePage({ params }: { params: { slug: string } }) {
-  const article = await getArticle(params.slug)
-
-  if (!article) {
-    notFound()
-  }
-
-  const relatedArticles = await getRelatedArticles(article.category, article.slug)
+    fetchArticleData()
+  }, [params.slug])
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("en-US", {
@@ -1425,39 +696,65 @@ export default async function ArticlePage({ params }: { params: { slug: string }
     }
   }
 
-  // Convert markdown-style content to HTML-like formatting
-  const formatContent = (content: string) => {
-    return content
-      .split('\n')
-      .map((line, index) => {
-        // Handle headers
-        if (line.startsWith('# ')) {
-          return `<h1 key="${index}" class="text-3xl font-bold text-gray-900 mb-6 mt-8">${line.substring(2)}</h1>`
-        }
-        if (line.startsWith('## ')) {
-          return `<h2 key="${index}" class="text-2xl font-bold text-gray-900 mb-4 mt-6">${line.substring(3)}</h2>`
-        }
-        if (line.startsWith('### ')) {
-          return `<h3 key="${index}" class="text-xl font-bold text-gray-900 mb-3 mt-5">${line.substring(4)}</h3>`
-        }
-        
-        // Handle bold text
-        line = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-        
-        // Handle bullet points
-        if (line.startsWith('- ')) {
-          return `<li key="${index}" class="ml-4 mb-2">${line.substring(2)}</li>`
-        }
-        
-        // Handle empty lines
-        if (line.trim() === '') {
-          return `<br key="${index}" />`
-        }
-        
-        // Regular paragraphs
-        return `<p key="${index}" class="mb-4 leading-relaxed">${line}</p>`
-      })
-      .join('')
+  // Simple content renderer
+  const renderContent = (content: string) => {
+    return content.split("\n").map((line, index) => {
+      if (line.trim() === "") {
+        return <br key={index} />
+      }
+
+      if (line.startsWith("# ")) {
+        return (
+          <h1 key={index} className="text-3xl font-bold text-gray-900 mb-6 mt-8">
+            {line.substring(2)}
+          </h1>
+        )
+      }
+
+      if (line.startsWith("## ")) {
+        return (
+          <h2 key={index} className="text-2xl font-bold text-gray-900 mb-4 mt-6">
+            {line.substring(3)}
+          </h2>
+        )
+      }
+
+      if (line.startsWith("### ")) {
+        return (
+          <h3 key={index} className="text-xl font-bold text-gray-900 mb-3 mt-5">
+            {line.substring(4)}
+          </h3>
+        )
+      }
+
+      if (line.startsWith("- ")) {
+        return (
+          <li key={index} className="ml-4 mb-2 list-disc">
+            {line.substring(2).replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")}
+          </li>
+        )
+      }
+
+      // Regular paragraph
+      const formattedLine = line.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+      return <p key={index} className="mb-4 leading-relaxed" dangerouslySetInnerHTML={{ __html: formattedLine }} />
+    })
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading article...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (!article) {
+    notFound()
+    return null
   }
 
   return (
@@ -1468,7 +765,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-2">
               <Link
-                href="https://www.serveb2b.com/"
+                href="/"
                 className="flex items-center space-x-2 hover:opacity-80 transition-opacity"
                 aria-label="ServeB2B - Salesforce B2B Commerce Cloud Experts"
               >
@@ -1494,7 +791,9 @@ export default async function ArticlePage({ params }: { params: { slug: string }
               <Link href="/#contact" className="text-gray-700 hover:text-blue-600 transition-colors">
                 Contact
               </Link>
-              <Button className="bg-blue-600 hover:bg-blue-700">Get Started</Button>
+              <Button className="bg-blue-600 hover:bg-blue-700" onClick={() => setIsContactModalOpen(true)}>
+                Get Started
+              </Button>
             </div>
           </div>
         </div>
@@ -1574,10 +873,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
 
         {/* Article Content */}
         <div className="prose prose-lg max-w-none mb-12">
-          <div 
-            className="text-gray-800 leading-relaxed space-y-4"
-            dangerouslySetInnerHTML={{ __html: formatContent(article.content) }}
-          />
+          <div className="text-gray-800 leading-relaxed space-y-4">{renderContent(article.content)}</div>
         </div>
 
         {/* Article Footer */}
@@ -1590,17 +886,15 @@ export default async function ArticlePage({ params }: { params: { slug: string }
               </Badge>
             ))}
           </div>
-          
+
           <div className="bg-blue-50 rounded-lg p-6">
             <h3 className="text-lg font-semibold text-gray-900 mb-2">Need Help with Your B2B Project?</h3>
             <p className="text-gray-600 mb-4">
               Our expert team at ServeB2B can help you implement the strategies and solutions discussed in this article.
             </p>
-            <Link href="/#contact">
-              <Button className="bg-blue-600 hover:bg-blue-700">
-                Get Expert Consultation
-              </Button>
-            </Link>
+            <Button className="bg-blue-600 hover:bg-blue-700" onClick={() => setIsContactModalOpen(true)}>
+              Get Expert Consultation
+            </Button>
           </div>
         </footer>
       </article>
@@ -1680,10 +974,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
-              <Link
-                href="https://www.serveb2b.com/"
-                className="flex items-center space-x-2 mb-4 hover:opacity-80 transition-opacity"
-              >
+              <Link href="/" className="flex items-center space-x-2 mb-4 hover:opacity-80 transition-opacity">
                 <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
                   <span className="text-white font-bold text-sm">S</span>
                 </div>
@@ -1750,4 +1041,37 @@ export default async function ArticlePage({ params }: { params: { slug: string }
               <h4 className="font-semibold mb-4">Company</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>
-                  <Link href="/" className="\
+                  <Link href="/" className="hover:text-white transition-colors">
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/#contact" className="hover:text-white transition-colors">
+                    Contact B2B Team
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#" className="hover:text-white transition-colors">
+                    Privacy Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#" className="hover:text-white transition-colors">
+                    Terms of Service
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+            <p>&copy; 2024 ServeB2B. All rights reserved. Salesforce B2B Commerce Cloud Experts.</p>
+          </div>
+        </div>
+      </footer>
+
+      {/* Contact Modal */}
+      <ContactModal isOpen={isContactModalOpen} onClose={() => setIsContactModalOpen(false)} />
+    </div>
+  )
+}

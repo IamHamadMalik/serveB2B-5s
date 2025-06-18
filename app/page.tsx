@@ -79,9 +79,11 @@ export default function HomePage() {
                 Start Your B2B Project
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button size="lg" variant="outline" className="text-lg px-8 py-3 border-blue-200 hover:bg-blue-50">
-                View Our B2B Solutions
-              </Button>
+              <Link href="/solutions">
+                <Button size="lg" variant="outline" className="text-lg px-8 py-3 border-blue-200 hover:bg-blue-50">
+                  View Our B2B Solutions
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -322,10 +324,12 @@ export default function HomePage() {
           </div>
 
           <div className="text-center mt-12">
-            <Button variant="outline" size="lg" className="border-blue-200 hover:bg-blue-50">
-              View All B2B Articles
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
+            <Link href="/articles">
+              <Button variant="outline" size="lg" className="border-blue-200 hover:bg-blue-50">
+                View All B2B Articles
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>

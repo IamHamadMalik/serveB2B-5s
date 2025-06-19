@@ -1,5 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
+import Footer from "@/components/footer"
 import "./globals.css"
 
 export const metadata: Metadata = {
@@ -148,6 +149,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         {/* End Google Tag Manager (noscript) */}
 
         {children}
+        <Footer />
       </body>
     </html>
   )

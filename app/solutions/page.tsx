@@ -41,7 +41,7 @@ export default function SolutionsPage() {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-2">
               <Link
-                href="https://www.serveb2b.com/"
+                href="/"
                 className="flex items-center space-x-2 hover:opacity-80 transition-opacity"
                 aria-label="ServeB2B - Salesforce B2B Commerce Cloud Experts"
               >
@@ -386,11 +386,12 @@ export default function SolutionsPage() {
             Let's discuss how we can create a custom B2B Salesforce solution for your business
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100 text-lg px-8 py-3">
-              Schedule Consultation
-              <ArrowRight className="ml-2 h-5 w-5" />
+            <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100 text-lg px-8 py-3" asChild>
+              <Link href="/#contact">
+                Schedule Consultation
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
             </Button>
-
           </div>
         </div>
       </section>
@@ -400,10 +401,7 @@ export default function SolutionsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
-              <Link
-                href="https://www.serveb2b.com/"
-                className="flex items-center space-x-2 mb-4 hover:opacity-80 transition-opacity"
-              >
+              <Link href="/" className="flex items-center space-x-2 mb-4 hover:opacity-80 transition-opacity">
                 <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
                   <span className="text-white font-bold text-sm">S</span>
                 </div>
@@ -454,12 +452,12 @@ export default function SolutionsPage() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
+                  <Link href="/documentation" className="hover:text-white transition-colors">
                     B2B Documentation
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
+                  <Link href="/support" className="hover:text-white transition-colors">
                     B2B Support
                   </Link>
                 </li>

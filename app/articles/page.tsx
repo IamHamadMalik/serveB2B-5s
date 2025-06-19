@@ -293,7 +293,7 @@ export default function ArticlesPage() {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-2">
               <Link
-                href="https://www.serveb2b.com/"
+                href="/"
                 className="flex items-center space-x-2 hover:opacity-80 transition-opacity"
                 aria-label="ServeB2B - Salesforce B2B Commerce Cloud Experts"
               >
@@ -551,10 +551,7 @@ export default function ArticlesPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
-              <Link
-                href="https://www.serveb2b.com/"
-                className="flex items-center space-x-2 mb-4 hover:opacity-80 transition-opacity"
-              >
+              <Link href="/" className="flex items-center space-x-2 mb-4 hover:opacity-80 transition-opacity">
                 <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
                   <span className="text-white font-bold text-sm">S</span>
                 </div>
@@ -605,12 +602,12 @@ export default function ArticlesPage() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
+                  <Link href="/documentation" className="hover:text-white transition-colors">
                     B2B Documentation
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
+                  <Link href="/support" className="hover:text-white transition-colors">
                     B2B Support
                   </Link>
                 </li>
@@ -628,6 +625,11 @@ export default function ArticlesPage() {
                 <li>
                   <Link href="/#contact" className="hover:text-white transition-colors">
                     Contact B2B Team
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/about" className="hover:text-white transition-colors">
+                    About ServeB2B
                   </Link>
                 </li>
                 <li>

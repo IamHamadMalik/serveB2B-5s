@@ -143,7 +143,7 @@ export default function HomePage() {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-2">
               <Link
-                href="https://www.serveb2b.com/"
+                href="/"
                 className="flex items-center space-x-2 hover:opacity-80 transition-opacity"
                 aria-label="ServeB2B - Salesforce B2B Commerce Cloud Experts"
               >
@@ -157,7 +157,7 @@ export default function HomePage() {
               <Link href="#services" className="text-gray-700 hover:text-blue-600 transition-colors">
                 Services
               </Link>
-              <Link href="#about" className="text-gray-700 hover:text-blue-600 transition-colors">
+              <Link href="/about" className="text-gray-700 hover:text-blue-600 transition-colors">
                 About
               </Link>
               <Link href="#articles" className="text-gray-700 hover:text-blue-600 transition-colors">
@@ -499,7 +499,7 @@ export default function HomePage() {
           <div className="grid md:grid-cols-4 gap-8">
             <div>
               <Link
-                href="https://www.serveb2b.com/"
+                href="/"
                 className="flex items-center space-x-2 mb-4 hover:opacity-80 transition-opacity"
                 aria-label="ServeB2B - B2B Salesforce Commerce Cloud Experts"
               >
@@ -569,12 +569,12 @@ export default function HomePage() {
               <h4 className="font-semibold mb-4">Company</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
+                  <Link href="/about" className="hover:text-white transition-colors">
                     About ServeB2B
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
+                  <Link href="/#contact" className="hover:text-white transition-colors">
                     Contact B2B Team
                   </Link>
                 </li>

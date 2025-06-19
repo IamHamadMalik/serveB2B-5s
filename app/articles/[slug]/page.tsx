@@ -1025,12 +1025,12 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
+                  <Link href="/documentation" className="hover:text-white transition-colors">
                     B2B Documentation
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
+                  <Link href="/support" className="hover:text-white transition-colors">
                     B2B Support
                   </Link>
                 </li>
@@ -1051,8 +1051,8 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
-                    Privacy Policy
+                  <Link href="/about" className="hover:text-white transition-colors">
+                    About ServeB2B
                   </Link>
                 </li>
                 <li>

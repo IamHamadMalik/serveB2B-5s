@@ -517,22 +517,22 @@ export default function HomePage() {
               <h4 className="font-semibold mb-4">B2B Services</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
+                  <Link href="/services/b2b-commerce-cloud" className="hover:text-white transition-colors">
                     B2B Commerce Cloud
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
+                  <Link href="/services/b2b-platform-development" className="hover:text-white transition-colors">
                     B2B Platform Development
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
+                  <Link href="/services/salesforce-b2b-core" className="hover:text-white transition-colors">
                     Salesforce B2B Core
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
+                  <Link href="/#contact" className="hover:text-white transition-colors">
                     B2B Consulting
                   </Link>
                 </li>
@@ -549,16 +549,16 @@ export default function HomePage() {
                 </li>
                 <li>
                   <Link href="/solutions" className="hover:text-white transition-colors">
-                    B2B Case Studies
+                    B2B Solutions
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
+                  <Link href="/documentation" className="hover:text-white transition-colors">
                     B2B Documentation
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
+                  <Link href="/support" className="hover:text-white transition-colors">
                     B2B Support
                   </Link>
                 </li>
@@ -579,12 +579,12 @@ export default function HomePage() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
+                  <Link href="/privacy" className="hover:text-white transition-colors">
                     Privacy Policy
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
+                  <Link href="/terms" className="hover:text-white transition-colors">
                     Terms of Service
                   </Link>
                 </li>

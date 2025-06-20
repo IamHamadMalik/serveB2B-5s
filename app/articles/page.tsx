@@ -8,6 +8,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { supabase } from "@/lib/supabase"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { X } from "lucide-react"
 
 type BlogPost = {
   id: number
@@ -171,6 +173,7 @@ export default function ArticlesPage() {
   const [searchTerm, setSearchTerm] = useState<string>("")
   const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([])
   const [usingFallback, setUsingFallback] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
     async function fetchData() {
@@ -501,15 +504,63 @@ export default function ArticlesPage() {
           <p className="text-xl text-blue-100 max-w-2xl mx-auto mb-8">
             Get the latest B2B Salesforce articles, tutorials, and industry insights delivered to your inbox
           </p>
-          <div className="max-w-md mx-auto flex gap-4">
-            <Input
-              placeholder="Enter your email"
-              className="flex-1 bg-white/10 border-white/20 text-white placeholder:text-blue-200"
-            />
-            <Button className="bg-white text-blue-600 hover:bg-gray-100">Subscribe</Button>
-          </div>
+
+          <Button
+            onClick={() => setIsOpen(true)}
+            className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-3 text-lg font-semibold transition-all duration-300"
+          >
+            Subscribe
+          </Button>
         </div>
       </section>
+
+      {/* Subscribe Modal (reused from Footer) */}
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <DialogContent className="max-w-4xl max-h-[90vh] p-0 overflow-hidden">
+          <DialogHeader className="p-6 pb-0">
+            <div className="flex items-center justify-between">
+              <DialogTitle className="text-2xl font-bold text-gray-900">Subscribe to ServeB2B</DialogTitle>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsOpen(false)}
+                className="h-8 w-8 rounded-full"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+            <p className="text-gray-600 mt-2">
+              Stay updated with our latest B2B commerce insights and solutions.
+            </p>
+          </DialogHeader>
+
+          <div className="px-6 pb-6">
+            <div className="bg-gray-50 rounded-lg p-4 overflow-hidden">
+              <iframe
+                src="https://docs.google.com/forms/d/e/1FAIpQLSeNuCgkU6qSjDX2qp4ji8evP3xB8fQtMUgskJK0O_i_DAjkxQ/viewform?embedded=true"
+                width="100%"
+                height="600"
+                frameBorder="0"
+                marginHeight={0}
+                marginWidth={0}
+                className="rounded-lg"
+                title="Subscribe Form"
+              >
+                Loading…
+              </iframe>
+            </div>
+
+            <div className="mt-4 text-center">
+              <p className="text-sm text-gray-500">
+                Prefer email? Reach us directly at{" "}
+                <a href="mailto:hello@serveb2b.com" className="text-blue-600 hover:underline">
+                  hello@serveb2b.com
+                </a>
+              </p>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

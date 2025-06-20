@@ -13,44 +13,6 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
-      {/* Navigation */}
-      <nav className="bg-white/80 backdrop-blur-md border-b border-blue-100 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-2">
-              <Link
-                href="/"
-                className="flex items-center space-x-2 hover:opacity-80 transition-opacity"
-                aria-label="ServeB2B - Salesforce B2B Commerce Cloud Experts"
-              >
-                <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">S</span>
-                </div>
-                <span className="text-xl font-bold text-gray-900">ServeB2B</span>
-              </Link>
-            </div>
-            <div className="hidden md:flex items-center space-x-8">
-              <Link href="/" className="text-gray-700 hover:text-blue-600 transition-colors">
-                Home
-              </Link>
-              <Link href="/#services" className="text-gray-700 hover:text-blue-600 transition-colors">
-                Services
-              </Link>
-              <Link href="/solutions" className="text-gray-700 hover:text-blue-600 transition-colors">
-                Solutions
-              </Link>
-              <Link href="/articles" className="text-gray-700 hover:text-blue-600 transition-colors">
-                Articles
-              </Link>
-              <Link href="/#contact" className="text-gray-700 hover:text-blue-600 transition-colors">
-                Contact
-              </Link>
-              <Button className="bg-blue-600 hover:bg-blue-700">Get Started</Button>
-            </div>
-          </div>
-        </div>
-      </nav>
-
       {/* Main Content */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="flex items-center space-x-2 mb-8">

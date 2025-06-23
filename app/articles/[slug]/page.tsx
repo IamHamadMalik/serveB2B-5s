@@ -3,13 +3,15 @@
 import { useState, useEffect } from "react"
 import { notFound } from "next/navigation"
 import Link from "next/link"
-import { ArrowLeft, Calendar, Clock, User, Share2, BookOpen, Zap, Users } from "lucide-react"
+import { ArrowLeft, Calendar, Clock, User, Share2, BookOpen, Zap, Users, AlertCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { ContactModal } from "@/components/contact-modal"
 import { supabase } from "@/lib/supabase"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { X } from "lucide-react"
 
 type BlogPost = {
   id: number
@@ -605,6 +607,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
   const [relatedArticles, setRelatedArticles] = useState<BlogPost[]>([])
   const [loading, setLoading] = useState(true)
   const [isContactModalOpen, setIsContactModalOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
     async function fetchArticleData() {
@@ -911,23 +914,53 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
         </section>
       )}
 
-      {/* Newsletter Signup */}
-      <section className="py-16 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold mb-4">Stay Updated with B2B Insights</h2>
-          <p className="text-xl text-blue-100 mb-8">
+      {/* Subscribe Modal (reused from Footer) */}
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <DialogContent className="max-w-4xl max-h-[90vh] p-0 overflow-hidden">
+          <DialogHeader className="p-6 pb-0">
+            <div className="flex items-center justify-between">
+              <DialogTitle className="text-2xl font-bold text-gray-900">Stay Updated with B2B Insights</DialogTitle>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsOpen(false)}
+                className="h-8 w-8 rounded-full"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+            <p className="text-gray-600 mt-2">
             Get the latest B2B Salesforce articles and insights delivered to your inbox
-          </p>
-          <div className="max-w-md mx-auto flex gap-4">
-            <Input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 bg-white/10 border-white/20 text-white placeholder:text-blue-200"
-            />
-            <Button className="bg-white text-blue-600 hover:bg-gray-100">Subscribe</Button>
+            </p>
+          </DialogHeader>
+
+          <div className="px-6 pb-6">
+            <div className="bg-gray-50 rounded-lg p-4 overflow-hidden">
+              <iframe
+                src="https://docs.google.com/forms/d/e/1FAIpQLSeNuCgkU6qSjDX2qp4ji8evP3xB8fQtMUgskJK0O_i_DAjkxQ/viewform?embedded=true"
+                width="100%"
+                height="600"
+                frameBorder="0"
+                marginHeight={0}
+                marginWidth={0}
+                className="rounded-lg"
+                title="Subscribe Form"
+              >
+                Loading…
+              </iframe>
+            </div>
+
+            <div className="mt-4 text-center">
+              <p className="text-sm text-gray-500">
+                Prefer email? Reach us directly at{" "}
+                <a href="mailto:hello@serveb2b.com" className="text-blue-600 hover:underline">
+                  hello@serveb2b.com
+                </a>
+              </p>
+            </div>
           </div>
-        </div>
-      </section>
+        </DialogContent>
+      </Dialog>
       {/* Contact Modal */}
       <ContactModal isOpen={isContactModalOpen} onClose={() => setIsContactModalOpen(false)} />
     </div>

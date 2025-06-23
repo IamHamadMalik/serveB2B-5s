@@ -76,6 +76,15 @@ export default function Footer() {
                     B2B Consulting
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    href="/vtex"
+                    className="hover:text-blue-400 transition-colors duration-200 flex items-center group"
+                  >
+                    <ArrowRight className="h-4 w-4 mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    VTEX
+                  </Link>
+                </li>
               </ul>
             </div>
 

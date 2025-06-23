@@ -1,5 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
+import Header from "@/components/header"
+import Footer from "@/components/footer"
 import "./globals.css"
 
 export const metadata: Metadata = {
@@ -62,92 +64,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
+}) {
   return (
     <html lang="en">
-      <head>
-        {/* Google Tag Manager */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-T8QP32NR');`,
-          }}
-        />
-        {/* End Google Tag Manager */}
-
-        {/* Google tag (gtag.js) */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-C9VW477292"></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-C9VW477292');
-            `,
-          }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              name: "ServeB2B",
-              url: "https://www.serveb2b.com",
-              logo: "https://www.serveb2b.com/logo.png",
-              description:
-                "Specializing in Salesforce B2B e-commerce development, we deliver custom solutions designed to optimize your online sales and streamline business processes.",
-              address: {
-                "@type": "PostalAddress",
-                addressCountry: "US",
-              },
-              contactPoint: {
-                "@type": "ContactPoint",
-                telephone: "+1-555-123-4567",
-                contactType: "customer service",
-                email: "hello@serveb2b.com",
-              },
-              sameAs: ["https://www.serveb2b.com"],
-              service: [
-                {
-                  "@type": "Service",
-                  name: "Salesforce B2B Commerce Cloud Development",
-                  description: "Custom B2B e-commerce solutions built on Salesforce Commerce Cloud platform",
-                },
-                {
-                  "@type": "Service",
-                  name: "Salesforce B2B Platform Customization",
-                  description: "Tailored Salesforce B2B platform development and customization services",
-                },
-                {
-                  "@type": "Service",
-                  name: "Salesforce Core CRM Development",
-                  description: "Custom Salesforce CRM development and Lightning platform solutions",
-                },
-              ],
-            }),
-          }}
-        />
-      </head>
       <body>
-        {/* Google Tag Manager (noscript) */}
-        <noscript>
-          <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-T8QP32NR"
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
-          />
-        </noscript>
-        {/* End Google Tag Manager (noscript) */}
-
+        <Header />
         {children}
+        <Footer />
       </body>
     </html>
   )

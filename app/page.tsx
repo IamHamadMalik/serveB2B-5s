@@ -158,6 +158,7 @@ export default function HomePage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
+                id="gtm-contact-us"
                 size="lg"
                 className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-3"
                 onClick={() => setIsContactModalOpen(true)}
@@ -444,6 +445,7 @@ export default function HomePage() {
 
           <div className="text-center mt-12">
             <Button
+              id="gtm-contact-us"
               size="lg"
               className="bg-white text-blue-600 hover:bg-gray-100 text-lg px-8 py-3"
               onClick={() => setIsContactModalOpen(true)}
